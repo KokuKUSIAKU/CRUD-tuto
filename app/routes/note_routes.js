@@ -1,5 +1,5 @@
 module.exports = function(app, db) {
-  console.log(db.collection);
+  console.log("db collection", db.collection);
   app.post('/notes', (req, res) => {
     const note = { text: req.body.body, title: req.body.title };
     console.log(note);
@@ -10,7 +10,7 @@ module.exports = function(app, db) {
         res.send(result.ops[0]);
       }
     });*/
-    console.log(db.collection);
+    console.log("db in post request ", db.collection);
     res.send("hello");
   });
 };
