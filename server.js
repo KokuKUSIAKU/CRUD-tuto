@@ -7,19 +7,14 @@ const app            = express();
 
 const port = 8000;
 app.use(bodyParser.urlencoded({ extended: true }));
+//app.set("views", "./app");
+app.use(express.static(__dirname + "/app"));
 
-MongoClient.connect(db.url, (err, database) => {
+MongoClient.connect(db.url, {native_parser:true}, (err, database) => {
   if (err) return err;
-  require('./app/routes')(app, database);
-
+  const db = database.db("nodetotosample"); 
+  require('./app/routes')(app, db);
   app.listen(port, () => {
     console.log('We are live on ' + port);
   });               
 });
-
-/*
-require('./app/routes')(app, {});
-app.listen(port, () => {
-  console.log('We are live on ' + port);
-});
-*/
